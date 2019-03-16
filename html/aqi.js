@@ -10,15 +10,29 @@ function getData() {
 }
 
 function updateHtml(data) {
+
+  //get numeric AQI from concentration
   let aqiPm25 = calcAQIpm25(data.pm25);
   let aqiPm10 = calcAQIpm10(data.pm10);
+
+  //generate verbal legend from numeric AQI
+  let legend25 = legend(aqiPm25);
+  let legend10 = legend(aqiPm10);
 
   //update HTML
   document.getElementById("time").innerHTML = data.time;
   document.getElementById("aqiPm25").innerHTML = aqiPm25;
   document.getElementById("aqiPm10").innerHTML = aqiPm10;
-  document.getElementById("pm25").innerHTML = "(PM2.5: " + data.pm25 + " µg/m³)";
-  document.getElementById("pm10").innerHTML = "(PM10: " + data.pm10 + " µg/m³)";
+  document.getElementById("pm25").innerHTML = "(" + data.pm25 + " µg/m³)";
+  document.getElementById("pm10").innerHTML = "(" + data.pm10 + " µg/m³)";
+  document.getElementById("legend10").innerHTML = legend10;
+  document.getElementById("legend25").innerHTML = legend25;
+
+  //can't get that to work right now
+  //document.getElementById("meter10").value=aqiPm10;
+  //document.getElementById("meter25").value=aqiPm25;
+
+ 
 
   //set colors
   colorsPm25 = getColor(aqiPm25);
@@ -128,4 +142,18 @@ function calcAQIpm10(pm10) {
 		aqipm10 = ((aqi8 - aqi7) / (pm8 - pm7)) * (pm10 - pm7) + aqi7;
 	}
 	return aqipm10.toFixed(0);
+}
+
+//generate a verbal legend based on the numeric AQI
+function legend(numeric_aqi) {
+
+	if (0 <= numeric_aqi && numeric_aqi <=50) var verbal_legend = "Good";
+	else if (51 <= numeric_aqi && numeric_aqi <=100) var verbal_legend = "Moderate";
+	else if (101 <= numeric_aqi && numeric_aqi <=150) var verbal_legend = "Unhealthy for Sensative Groups";
+	else if (151 <= numeric_aqi && numeric_aqi <=200) var verbal_legend = "Unhealthy";
+	else if (201 <= numeric_aqi && numeric_aqi <=300) var verbal_legend = "Very Unhealthy";
+	else if (301 <= numeric_aqi && numeric_aqi <=500) var verbal_legend = "Hazardous";
+	else var verbal_legend = "Error"
+
+	return verbal_legend
 }

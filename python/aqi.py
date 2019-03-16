@@ -114,7 +114,9 @@ if __name__ == "__main__":
             data.pop(0)
 
         # append new values
-        data.append({'pm25': values[0], 'pm10': values[1], 'time': time.strftime("%d.%m.%Y %H:%M:%S")})
+#        data.append({'pm25': values[0], 'pm10': values[1], 'time': time.strftime("%d.%m.%Y %H:%M:%S")})
+#       Using ctime() instead of strftime().  
+        data.append({'pm25': values[0], 'pm10': values[1], 'time': time.ctime()})
 
         # save it
         with open('/var/www/html/aqi.json', 'w') as outfile:

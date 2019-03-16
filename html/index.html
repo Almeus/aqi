@@ -3,23 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AQI</title>
+    <title>Air Quality Index</title>
     <script src="aqi.js"></script>
     <link rel='stylesheet' href='style.css'>
   </head>
   <body>
     <div class="container">
-      <h1>AQI</h1>
+      <h1>Air Quality Index</h1>
       <p class='time' id="time"></p>
       <div class='aqi-container' id="containerPm25">
           <div class='aqi-label'>AQI (PM2.5)</div>
           <div class='aqi' id="aqiPm25"></div>
+          <div class="legend" id="legend25"></div>
           <div class='pm-label' id="pm25"></div>
+	  <!--
+	   fix this when I get the chance. AQI is usually too small to see on the meter
+	   <meter class="meter25" id="meter25" max="250.0" value="125.0"></meter>
+	  -->
       </div>
       <div class='aqi-container' id="containerPm10">
           <div class='aqi-label'>AQI (PM10)</div>
           <div class='aqi' id="aqiPm10"></div>
+          <div class="legend" id="legend10"></div>
           <div class='pm-label' id="pm10"></div>
+	  <!--
+	   see above
+	  <meter class="meter10" id="meter10" max="250.0" value="125.0"></meter>
+	  -->
       </div>
     </div>
   </body>
