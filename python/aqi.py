@@ -4,6 +4,7 @@
 # https://gist.github.com/kadamski/92653913a53baf9dd1a8
 from __future__ import print_function
 import serial, struct, sys, time, json
+from os.path import exists
 
 DEBUG = 0
 CMD_MODE = 2
@@ -23,6 +24,17 @@ ser.open()
 ser.flushInput()
 
 byte, data = 0, ""
+
+def initiate_json(file_path):
+    """
+    Check to see if the aqi.json exists in the html direcotry and add it if not
+    """
+    if not exists(file_path):
+        with open(file_path,"w") as fresh_file:
+            fresh_file.write('[]')
+
+
+
 
 def dump(d, prefix=''):
     print(prefix + ' '.join(x.encode('hex') for x in d))
@@ -96,6 +108,9 @@ def cmd_set_id(id):
     read_response()
 
 if __name__ == "__main__":
+
+    initiate_json('/var/www/html/aqi.json')
+
     while True:
         cmd_set_sleep(0)
         cmd_set_mode(1);
